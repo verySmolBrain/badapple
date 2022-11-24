@@ -1,10 +1,10 @@
 use std::path::Path;
 
-use ffmpeg::{format::context, Error};
+use ffmpeg::{format::context, format::input, Error};
 
 pub fn get_context(filename: &str) -> Result<context::Input, Error> {
     let path = Path::new(filename);
-    let ictx = ffmpeg::format::input(&path)?;
+    let ictx = input(&path)?;
 
     Ok(ictx)
 }

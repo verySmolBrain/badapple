@@ -1,4 +1,6 @@
 extern crate ffmpeg_next as ffmpeg;
+extern crate termsize;
+
 use std::env;
 
 use crate::video::video::print_ascii_from_video;
