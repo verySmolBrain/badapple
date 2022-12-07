@@ -1,20 +1,22 @@
-extern crate ffmpeg_next as ffmpeg;
 extern crate termsize;
 
 use std::env;
-
-use crate::video::video::print_ascii_from_video;
+use crate::utils::error;
+use crate::video::videoplayer;
 
 mod video;
 mod utils;
 
-fn main() -> Result<(), ffmpeg::Error> {
-    ffmpeg::init().unwrap();
-
+fn main() {
     let filename = env::args().nth(1).expect("Please provide a filename");
-    println!("Opening {}", filename);
 
-    print_ascii_from_video(&filename)?;
-
-    Ok(())
+    match videoplayer::print_ascii_from_video(&filename) {
+        Err(error) => {
+            error::error_handler(error);
+            std::process::exit(1);
+        }
+        Ok(()) => {
+            std::process::exit(0);
+        }
+    }
 }

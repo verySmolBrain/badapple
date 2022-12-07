@@ -7,8 +7,4 @@ edition = "2021"
 
 [dependencies]
 termsize = "0.1"
-
-[dependencies.ffmpeg-next]
-version = "5.1.1"
-default-features = false
-features = ["codec", "format", "software-scaling"]
+opencv = "0.74"
