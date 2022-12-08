@@ -57,7 +57,7 @@ impl Player {
 
             let elapsed = start.elapsed().unwrap().as_secs_f64();
             if elapsed < self.time_d {
-                std::thread::sleep(time::Duration::from_millis(((self.time_d - elapsed) * 1000.0) as u64));
+                std::thread::sleep(time::Duration::from_secs_f64(self.time_d - elapsed));
             }
         }
 

@@ -18,25 +18,23 @@ pub fn convert_frame(frame: &Mat) -> Result<String, BadAppleError> {
 }
 
 fn convert_pixel(pixel: &core::Vec3b) -> Result<char, BadAppleError> {
-    pub const CHARS: [char; 11] = [' ', ' ', '.', ':', '!', '+', '*', 'e', '$', '@', '8'];
-    let b = *pixel.get(0).unwrap();
-	let g = *pixel.get(1).unwrap();
-	let r = *pixel.get(2).unwrap();
+    let b = pixel[0];
+	let g = pixel[1];
+	let r = pixel[2];
 
-    // Formula for converting RGB to luminance
+    // https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
     let brightness = 0.2126 * f32::from(r) + 0.7152 * f32::from(g) + 0.0722 * f32::from(b);
 
-    Ok(CHARS[(10.0 * brightness / 255.0) as usize])
-
-    // match brightness as i32 {
-    //     0..= 25 => Ok('.'),
-    //     26..= 50 => Ok(':'),
-    //     51..= 75 => Ok('-'),
-    //     76..= 100 => Ok('='),
-    //     101..= 125 => Ok('+'),
-    //     126..= 150 => Ok('*'),
-    //     151..= 175 => Ok('$'),
-    //     176..= 200 => Ok('#'),
-    //     _ => Ok('@'),
-    // }
+    match brightness as i32 {
+        0 => Ok(' '),
+        1..= 25 => Ok('.'),
+        26..= 50 => Ok(':'),
+        51..= 75 => Ok('-'),
+        76..= 100 => Ok('='),
+        101..= 125 => Ok('+'),
+        126..= 150 => Ok('*'),
+        151..= 175 => Ok('$'),
+        176..= 200 => Ok('#'),
+        _ => Ok('@'),
+    }
 }
